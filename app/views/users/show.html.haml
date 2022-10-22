@@ -1,0 +1,11 @@
+%p#notice= notice
+
+%div#show-fields
+  = render 'show_fields'
+
+- if !current_user.ddss?
+  = link_to 'Edit', edit_user_path(@user), class: 'ajax-modal linkBtn'
+  -# \|
+  = link_to 'Delete', @user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'linkBtn'
+  -# \|
+= link_to 'Back', backLocation, class: 'linkBtn'

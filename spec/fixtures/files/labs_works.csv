@@ -1,0 +1,4 @@
+EventId,Start,Finish,Status,Day,Room,RoomName,Module Code,DOA,Staffcode,Staffname,Staffemail,StudentRegNo,Dates
+979101,09:00,11:30,2,Monday,DIA-101,101 - Project Space - Engineering Applications Workshop,MEC1000,ACME100a,FE1PMA,"Aspinall,Martyn",p.m.aspinall@sheffield.ac.uk,210000001,08/03/2021
+911590,09:00,12:00,2,Monday,DIA-107,Analytics (40),CPE260,MBCE105,FC1KRP,"Penny,Keith",k.penny@sheffield.ac.uk,210000002,08/03/2021
+911590,09:00,12:00,2,Monday,DIA-107,Analytics (40),CPE260,MBCE105CPE260,FC1KRP,"Penny,Keith",k.penny@sheffield.ac.uk,210000003,08/03/202

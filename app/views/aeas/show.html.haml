@@ -1,0 +1,30 @@
+%p#notice= notice
+
+%p
+  %b Regno:
+  = @aea.regNo
+%p
+  %b Requirements:
+  = @aea.requirements
+%p
+  %b Other:
+  = @aea.other
+%p
+  %b Information:
+  = @aea.information
+%p
+  %b Illness:
+  = @aea.illness
+%p
+  %b Consent:
+  = @aea.consent
+%p
+  %b Duration:
+  = @aea.duration
+%p
+  %b Additional:
+  = @aea.additional
+
+= link_to 'Edit', edit_aea_path(@aea)
+\|
+= link_to 'Back', aeas_path

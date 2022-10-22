@@ -1,0 +1,34 @@
+%h1 Overview for DLOs
+
+%br
+
+
+%body Should contain a table showing the most recent changes made to students' profiles (only students who are in my department)
+
+%br
+
+%table
+  %thead
+    %tr
+      %th Regno
+      %th Programmecode
+      %th Deptcode
+      %th Personaltutor
+      %th Periodofstudy
+      %th
+      %th
+      %th
+
+  %tbody
+    - @students.each do |student|
+      %tr
+        %td= student.regNo
+        %td= student.programmeCode
+        %td= student.deptCode
+        %td= student.personalTutor
+        %td= student.periodOfStudy
+        %td= link_to 'Show', student
+        %td= link_to 'Edit', edit_student_path(student)
+        %td= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br

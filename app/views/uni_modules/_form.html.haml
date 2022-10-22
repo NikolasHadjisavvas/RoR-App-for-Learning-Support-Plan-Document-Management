@@ -1,0 +1,12 @@
+-# frozen_string_literal: true
+= simple_form_for(@uni_module) do |f|
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+  .form-inputs.bold.box-sizing.h
+    = f.input :modCode
+    = f.input :deptCode, input_html: { class: 'select2' }, collection: Department.all, label_value: :deptCode, label_method: :codeAndTitle, label: 'Department', prompt: "Select a department"
+    = f.association :users, input_html: { class: 'select2' }, collection: User.where(role: 'Academic') , label_value: :id ,label_method: :fullName, label: "Assign academics"
+
+  .form-actions
+    = f.button :submit, class: 'create'

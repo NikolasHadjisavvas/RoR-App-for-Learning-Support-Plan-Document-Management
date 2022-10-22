@@ -1,0 +1,221 @@
+@import "bootstrap/functions";
+@import "bootstrap/variables";
+
+$theme_blue : #007bff;
+
+//My & Other students table
+
+// -> the 1st row and overall table structure
+.students_table{
+    width: 500%;
+    text-align: center;
+    box-sizing: border-box;
+    border: thin solid lightgray;
+    border-collapse: collapse;
+    background-color: $theme_blue;
+    color: white;
+    tr {
+        &:nth-child(even) {
+            background-color: #e6e6e6;
+        }
+    }
+    th{
+        padding: 15px;
+    }
+}
+
+//-> the student details rows
+.student_table_content{
+    background-color: white;
+    color: black;
+    vertical-align: top;
+    td{
+        padding: 10px 20px;
+        border-color: lightgray;
+    }
+}
+
+// Width of the context of every page
+.container{
+    max-width: 1500px;
+}
+
+
+// reminders page 
+.reminders_table{
+    margin-top: 50px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+    box-sizing: border-box;
+    border-collapse: collapse;
+    background-color: $theme_blue;
+    color: white;
+    box-shadow: 0 5px 9px 0 rgba(0, 0, 0, 0.2), 0 7px 21px 0 rgba(0, 0, 0, 0.19);
+    width: auto;
+    line-height: 1cm;
+    tr {
+        &:nth-child(even) {
+            background-color: #e6e6e6;
+        }
+    }
+    td{
+        background-color: white;
+        color: black;
+        vertical-align: top;
+        padding: 10px 20px;
+        border-color: lightgray;
+    }
+    &:nth-child(even) {
+        background-color: #e6e6e6;
+    }
+}
+
+.reminders_table2{
+    &:nth-child(even) {
+        background-color: #e6e6e6;
+    }
+}
+
+
+
+//Student Upload page
+
+.panel-body{
+    font-size: larger;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+// Currently used for All Modules and All Labs table
+.generic_table{
+    margin-top: 50px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+    box-sizing: border-box;
+    border-collapse: collapse;
+    background-color: $theme_blue;
+    color: white;
+    box-shadow: 0 5px 9px 0 rgba(0, 0, 0, 0.2), 0 7px 21px 0 rgba(0, 0, 0, 0.19);
+    width: auto;
+    line-height: 1cm;
+    tr {
+        &:nth-child(even) {
+            background-color: #e6e6e6;
+        }
+    }
+}
+
+// module table rows
+.module_table_content{
+    background-color: white;
+    color: black;
+    border: thin solid lightgray;
+    vertical-align: top;
+}
+
+//Login Page
+
+.login_page{
+    width: 180%;
+}
+
+.card{
+    border: none;
+    border-radius: 0rem;
+    margin-left: 70px;
+}
+
+.card-body{
+    margin-top: 50px;
+}
+
+.form-group{
+    margin-bottom: 40px;
+}
+
+.card-footer{
+    background-color: white;
+}
+
+//Add Student Page
+.new-student{
+    padding-top: 10px;
+    padding-bottom: 30px;
+}
+
+.form-inputs{
+    font-size: 20px;
+}
+
+//Edit Details Button
+
+.edit{
+    font-size: 20px;
+}
+
+//Upload LSP page
+
+.panel-footer{
+    margin-bottom: 90px;
+}
+
+.panel-body{
+    width: 25%;
+    border: thin solid #007bff;
+    padding-top: 25px;
+    padding-left: 25px;
+    label {
+        padding-bottom: 25px;
+    }
+    box-shadow: 0 5px 9px 0 rgba(0, 0, 0, 0.2), 0 7px 21px 0 rgba(0, 0, 0, 0.19);
+}
+
+// generic button 
+.form-actions{
+    // border: thin solid $theme_blue;
+    // border-radius: 20px;
+    width: fit-content;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+// search labels
+.form-group{
+    width: 50%;
+}
+
+.form-control{
+    margin-top: 15px;
+}
+
+.select2-container--bootstrap .select2-selection--single{
+    margin-top: 15px;
+    height: 38px;
+}
+
+.reminder_body{
+    margin-top: 30px;
+}
+
+.panel-title{
+    margin-bottom: 30px;
+}
+
+//settings page 
+
+.show_fields{
+    color: black;
+    font-size: larger;
+    padding-bottom: 30px;
+    letter-spacing: 0.5px;
+}
+
+.edit_students{
+    .form-group{
+        width: 100%;
+    }
+}

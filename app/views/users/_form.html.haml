@@ -1,0 +1,18 @@
+-# frozen_string_literal: true
+.modal-dialog
+  .modal-content
+    = simple_form_for @user, remote: true do |f|
+      .modal-header
+        %h4.modal-title Editing user
+        %button.close{ type: :button, data: { dismiss: :modal } }
+          %span &times;
+      .modal-body{:class => "edit_students"}
+        = f.input :email, disabled: true
+        = f.input :role, as: :select, collection: ["DLO", "Academic", "DDSS", "Lab Technician", "Superuser"], include_blank: false
+
+      .modal-footer
+        .pull-left
+          = dismiss_modal_button
+        = f.button :submit, class: 'btn btn-outline-dark'
+
+

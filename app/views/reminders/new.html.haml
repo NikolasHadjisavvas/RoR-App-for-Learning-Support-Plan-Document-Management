@@ -1,0 +1,100 @@
+-# frozen_string_literal: true
+- content_for :title, 'Reminders'
+
+= javascript_tag 'select_all.js'
+
+
+.panel.panel-default 
+  .panel-heading 
+    %h3.panel-title Send a reminder email
+
+  = simple_form_for :search, url: search_reminders_path, method: :post do |f|
+
+
+    - if current_user.dlo? && session[:return_to] == '/reminders/student_reminders'
+      = f.input :uni_modules, input_html: { class: 'select2' }, collection: UniModule.where(deptCode: current_user.ou), label_value: :id, label_method: :modCode
+
+    - elsif current_user.dlo? && !@student_page
+      = f.input :uni_modules, input_html: { class: 'select2' }, collection: UniModule.where(deptCode: current_user.ou), label_value: :id, label_method: :modCode
+      = f.input :role, as: :select, collection: ["Academic"], include_blank: false, readonly: true
+
+    - elsif current_user.ddss?
+      = f.input :deptCode, input_html: { class: 'select2' }, collection: Department.all, label_value: :deptCode, label_method: :codeAndTitle, label: 'Department', prompt: "Select a department"
+
+    - else 
+      = f.input :role, as: :select, collection: ["Academic", "Superuser", "DLO", "DDSS", "Lab Technician"]
+      = f.input :uni_modules, input_html: { class: 'select2' }, collection: UniModule.all, label_value: :id, label_method: :modCode
+      = f.input :deptCode, input_html: { class: 'select2' }, collection: Department.all, label_value: :deptCode, label_method: :codeAndTitle, label: 'Department', prompt: "Select a department"
+      
+    = f.submit 'Search'
+    = link_to 'Reset', backLocation, class: 'linkBtn'
+
+    #users.tooltipright
+      %i.fa.fa-question-circle.fa-color{"aria-hidden" => "true"}
+      %span.toolttext Filter the users/students (if you intend to) before writing your reminder message and selecting recipients. Otherwise, all fields will be emptied.
+
+  = simple_form_for(@reminder) do |f|
+    .form-inputs
+    
+    = f.input :body 
+    #studentReminder.tooltipright
+      %i.fa.fa-question-circle.fa-color{"aria-hidden" => "true"}
+      %span.toolttext Enter the content of the email reminder you want to send
+    - if current_user.dlo? && @student_page
+          
+      %table{:class => "table", :width=>"100%"}
+        %tr
+          %th= f.check_box(:toAll, id: "select_all")
+          %th Registration Number
+          %th Forename
+          %th Surname
+          %th Programme Code
+          %th Deptcode
+          %th Personaltutor
+          %th Periodofstudy
+
+        %tbody#users-table
+          = render 'students_table'
+
+    
+
+      
+    - else
+      %table{:class => "table", :width=>"100%"}
+        %tr
+          %th= f.check_box(:toAll, id: "select_all")
+          %th Username
+          %th First name
+          %th Last name
+          %th Email
+          %th Role
+          %th Department Code
+
+        %tbody#users-table
+          = render 'users_table'
+
+
+
+    .form-actions
+      = f.button :submit, class: 'create'
+
+  
+
+:javascript
+  $('#select_all').click(function() {
+    if (this.checked == false) {
+      $(':checkBox').each(function(){
+        this.checked = false;
+      }); 
+    }
+    else {
+      $(':checkBox').each(function() {
+        this.checked = true;
+      });
+    }
+      
+  });
+
+  
+
+

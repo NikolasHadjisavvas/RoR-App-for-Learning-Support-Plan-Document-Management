@@ -1,0 +1,27 @@
+%h1 Account Info
+
+%p{:class => "show_fields", :style => "margin-top: 40px"}
+  %b Username:
+  = current_user.username
+%p{:class => "show_fields"}
+  %b Firstname:
+  = current_user.givenname
+%p{:class => "show_fields"}
+  %b Lastname:
+  = current_user.sn
+%p{:class => "show_fields"}
+  %b Email:
+  = current_user.email
+%p{:class => "show_fields"}
+  %b Role:
+  = current_user.role
+%p{:class => "show_fields"}
+  %b Deptcode:
+  = current_user.ou
+
+- if current_user.academic?
+  = simple_form_for(@user) do |f|
+    .form-inputs
+      = f.input :notification_freq, collection: [["Every day",1],["Every 3 days",3],["Every 5 days",5]], include_blank: false, label: 'Update notification frequency'
+    .form-actions
+      = f.button :submit, 'Save', class: 'create'

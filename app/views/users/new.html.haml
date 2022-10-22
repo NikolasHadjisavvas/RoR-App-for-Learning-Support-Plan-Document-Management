@@ -1,0 +1,37 @@
+- if session[:return_to] == ("/users/dlo_users") || current_user.dlo?
+  %h1{:style => "margin-bottom: 50px;"} New DLO
+- elsif current_user.ddss?
+  %h1{:style => "margin-bottom: 50px;"} New DDSS
+- elsif session[:return_to] == "/users/academic_users"
+  %h1{:style => "margin-bottom: 50px;"} New Academic
+- elsif session[:return_to] == ("/users/lab_technician_users")
+  %h1{:style => "margin-bottom: 50px;"} New Lab Technician
+- else
+  %h1{:style => "margin-bottom: 50px;"} New user
+
+= simple_form_for(@user) do |f|
+  = f.error_notification
+
+  .form-inputs.bold.box-sizing.h
+    = f.input :email
+    - if current_user.ddss?
+      = f.input :role, as: :select, collection: ["DDSS"], include_blank: false, readonly: true
+    - elsif session[:return_to] == "/users/academic_users"
+      = f.input :role, as: :select, collection: ["Academic"], include_blank: false, readonly: true
+    - elsif session[:return_to] == ("/users/lab_technician_users")
+      = f.input :role, as: :select, collection: ["Lab Technician"], include_blank: false, readonly: true
+    - elsif session[:return_to] == ("/users/dlo_users") || current_user.dlo?
+      = f.input :role, as: :select, collection: ["DLO"], include_blank: false, readonly: true
+    - else
+      = f.input :role, as: :select, collection: ["DLO", "Academic", "DDSS", "Lab Technician", "Superuser"], include_blank: false
+
+  .form-actions
+    = f.button :submit, class: 'create'
+
+    #new.tooltipright
+      %i.fa.fa-question-circle.fa-color{"aria-hidden" => "true"}
+      %span.toolttext Enter an email address and select a role for the user. Click on the 'Create User' button to complete the user creation.
+
+- if !current_user.ddss?
+  = link_to 'Back', backLocation, class: 'linkBtn'
+

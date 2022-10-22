@@ -1,0 +1,17 @@
+-# frozen_string_literal: true
+= simple_form_for(@aea) do |f|
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+  .form-inputs
+    = f.input :regNo
+    = f.input :requirements
+    = f.input :other
+    = f.input :information
+    = f.input :illness
+    = f.input :consent
+    = f.input :duration
+    = f.input :additional
+
+  .form-actions
+    = f.button :submit

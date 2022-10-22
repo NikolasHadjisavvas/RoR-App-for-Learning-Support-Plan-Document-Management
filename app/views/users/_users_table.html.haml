@@ -1,0 +1,8 @@
+- @users.each do |user|
+  %tr{:class => "users_table"}
+    %td= link_to user.username, user
+    %td= user.givenname
+    %td= user.sn
+    %td= user.email
+    %td= user.role
+    %td= user.ou

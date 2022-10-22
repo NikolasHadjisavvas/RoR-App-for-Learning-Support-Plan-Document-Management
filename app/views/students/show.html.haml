@@ -1,0 +1,71 @@
+%p#notice= notice
+
+%p{:class => "show_fields"}
+  %b Regno:
+  = @student.regNo
+%p{:class => "show_fields"}
+  %b Forename:
+  = @student.firstname
+%p{:class => "show_fields"}
+  %b Surname:
+  = @student.lastname
+%p{:class => "show_fields"}
+  %b Programmecode:
+  = @student.programmeCode
+%p{:class => "show_fields"}
+  %b Deptcode:
+  = @student.deptCode
+%p{:class => "show_fields"}
+  %b Personaltutor:
+  = getTutorName(@student)
+%p{:class => "show_fields"}
+  %b Periodofstudy:
+  = @student.periodOfStudy
+
+%p
+  %b Disability type:
+  = @lsp.disabilitytype
+
+%p
+  %b Disability Information:
+  = simple_format(@lsp.disabilityInfo)
+
+%p
+  %b Access,evacuation and emergency care:
+  = simple_format(@lsp.access)
+%p
+  %b Communication/Ongoing Contact:
+  = simple_format(@lsp.contact)
+%p
+  %b Teaching:
+  = simple_format(@lsp.teaching)
+%p
+  %b Exams and Assessment:
+  = simple_format(@lsp.exams)
+%p
+  %b Practical course elements:
+  = simple_format(@lsp.practicals)
+%p
+  %b Extenuating Circumstances:
+  = simple_format(@lsp.circumstances)
+%p
+  %b Additional recommendations:
+  =simple_format( @lsp.recommendations)
+
+
+
+%p{:class => "show_fields"}
+  %b Modules:
+  - @student.uni_modules.each do |mod|
+    %tr
+      %td= mod.modCode
+
+
+- if (!current_user.academic? && !current_user.lab_technician?) && session[:return_to] != "/students/other_students"
+  = link_to 'Edit Student Details', edit_student_path(@student), class: 'linkBtn'
+  -# \|
+  = link_to 'Edit Student LSP', edit_lsp_path(@lsp), class: 'linkBtn'
+  -# \|
+  = link_to 'Delete', @student, method: :delete, data: { confirm: 'Are you sure?' }, class: 'linkBtn'
+  -# \|
+= link_to 'Back', backLocation, class: 'linkBtn'

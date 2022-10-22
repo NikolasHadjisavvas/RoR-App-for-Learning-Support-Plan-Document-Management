@@ -1,0 +1,32 @@
+-# frozen_string_literal: true
+= simple_form_for(@lab) do |f|
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+  .form-inputs.bold.box-sizing.h
+    = f.input :eventId, label: "Event ID"
+    = f.input :room
+    = f.input :roomname
+    -if !@lab.startdate.nil?
+      = f.label :date, "Date"
+      = f.date_field :date, min: Date.today, class: "form-control", value: @lab.startdate.strftime('%F')
+      = f.label :date, "Start time"
+      = f.time_field :start_time, class: "form-control", value: @lab.startdate.strftime('%H:%M')
+      = f.label :date, "Finish time"
+      = f.time_field :finish_time, class: "form-control", value: @lab.finishdate.strftime('%H:%M')
+    - else
+      = f.label :date, "Date"
+      = f.date_field :date, min: Date.today, class: "form-control", value: Date.today
+      %br
+      = f.label :date, "Start time"
+      = f.time_field :start_time, class: "form-control", value: Time.now.strftime("%H:%M")
+      %br
+      = f.label :date, "Finish time"
+      = f.time_field :finish_time, class: "form-control", value: Time.now.strftime("%H:%M")
+      %br
+    = f.association :uni_modules, input_html: { class: 'select2' }, collection: UniModule.all, label_value: :id, label_method: :modCode, label: "Assign a module/modules"
+    = f.input :user_id, input_html: { class: 'select2' }, collection: User.where(role: 'Lab Technician') , label_value: :id ,label_method: :fullName, include_blank: false, label: "Assign lab technician"
+    = f.association :students, input_html: { class: 'select2' }, collection: Student.all , label_value: :id ,label_method: :fullName, label: "Assign students"
+
+  .form-actions
+    = f.button :submit, class: 'create'

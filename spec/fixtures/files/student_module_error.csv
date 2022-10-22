@@ -1,0 +1,6 @@
+Registration_Number,Surname,Forename,Title,E_Mail_Address,Supervisors_Surname,Supervisors_Initials,SupervisorsEmail,Tutor_Surname,Tutor_Initials,TutorEmail,Programme_Code,Calendar_Occurrence_Code,Programme_Period_Code,Expected_Completion_Date,Unit_Code,Calendar_Type_Code,Owned_By_Code
+210000001,Simpson,Homer,Mr,HSimpson@sheffield.ac.uk,,,,Farrer,I,IFarrer@sheffield.ac.uk,COMU59,ACAD YR 20,C,01/07/2021,EEE117,SPR SEM,EEE
+,,,,,,,,,,,,,,EEE307,SPR SEM,EEE
+,,,,,,,,,,,,,,EEE317,AUT SEM,EEE
+210000002,Simpson,Marge,Mrs,MSimpson1@sheffield.ac.uk,,,,O'Farrell,T,TOFarrell@sheffield.ac.uk,EEEU54,ACAD YR 20,C,01/07/2021,EEE345,SPR SEM,EEE
+,,,,,,,,,,,,,,EEE381,ACAD YR,EEE

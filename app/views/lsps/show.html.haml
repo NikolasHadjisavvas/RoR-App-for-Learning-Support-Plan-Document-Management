@@ -1,0 +1,27 @@
+%p#notice= notice
+
+%p
+  %b Access:
+  = @lsp.access
+%p
+  %b Contact:
+  = @lsp.contact
+%p
+  %b Teaching:
+  = @lsp.teaching
+%p
+  %b Exams:
+  = @lsp.exams
+%p
+  %b Practicals:
+  = @lsp.practicals
+%p
+  %b Circumstances:
+  = @lsp.circumstances
+%p
+  %b Recommendations:
+  = @lsp.recommendations
+
+= link_to 'Edit', edit_lsp_path(@lsp)
+\|
+= link_to 'Back', backLocation

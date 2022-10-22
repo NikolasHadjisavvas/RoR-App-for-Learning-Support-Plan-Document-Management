@@ -1,0 +1,40 @@
+
+= javascript_tag 'select_all.js'
+
+- if current_user.dlo? then
+  - @users.each do |user|
+    %tr{:class => "reminders_table", :border => "0", :style => "width: 100%;"}
+      %td= check_box_tag('user_ids[]', user.email,false, class: 'checkBox', checked: false)
+      %td= link_to user.username, user
+      %td= user.givenname
+      %td= user.sn
+      %td= user.email
+      %td= user.role
+      %td= user.ou
+
+- if current_user.ddss? then
+  - @users.each do |user|
+    %tr{:class => "reminders_table", :border => "0", :style => "width: 100%;"}
+      %td= check_box_tag('user_ids[]', user.email, false,class: 'checkBox', checked: false)
+      %td= link_to user.username, user
+      %td= user.givenname
+      %td= user.sn
+      %td= user.email
+      %td= user.role
+      %td= user.ou
+
+- if current_user.superuser? then
+  - @users.each do |user|
+    %tr{:class => "reminders_table", :border => "0", :style => "width: 100%;"}
+      %td= check_box_tag('user_ids[]', user.email, false, class: 'checkBox', checked: false)
+      %td= link_to user.username, user
+      %td= user.givenname
+      %td= user.sn
+      %td= user.email
+      %td= user.role
+      %td= user.ou
+
+#usersReminders.tooltipright
+  %i.fa.fa-question-circle.fa-color{"aria-hidden" => "true"}
+  %span.toolttext For choosing the recipients of the email, either check the checkbox in the blue header of the table(if you want to send the reminder to all possible recipients), or check the individual box of the people you want to send an email, if you want to send the email to specific recipients
+

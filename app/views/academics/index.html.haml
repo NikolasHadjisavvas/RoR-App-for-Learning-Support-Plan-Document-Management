@@ -1,0 +1,49 @@
+%head 
+
+%h1 Overview for Academics
+
+%br
+
+
+%body Should contain a table of all students belonging to that academic and information pertaining to them.
+
+%br
+%br
+
+-# %input#myInput{:onkeyup => "myFunction()", :placeholder => "Search for names..", :type => "text"}/
+-# %ul#myUL
+-#   %li
+-#     %a{:href => "#"} Adele
+-#   %li
+-#     %a{:href => "#"} Agnes
+-#   %li
+-#     %a{:href => "#"} Billy
+-#   %li
+-#     %a{:href => "#"} Bob
+-#   %li
+-#     %a{:href => "#"} Calvin
+-#   %li
+-#     %a{:href => "#"} Christina
+-#   %li
+-#     %a{:href => "#"} Cindy
+
+-# :javascript
+-#     function myFunction() {
+-#     // Declare variables
+-#     var input, filter, ul, li, a, i, txtValue;
+-#     input = document.getElementById('myInput');
+-#     filter = input.value.toUpperCase();
+-#     ul = document.getElementById("myUL");
+-#     li = ul.getElementsByTagName('li');
+  
+-#     // Loop through all list items, and hide those who don't match the search query
+-#     for (i = 0; i < li.length; i++) {
+-#       a = li[i].getElementsByTagName("a")[0];
+-#       txtValue = a.textContent || a.innerText;
+-#       if (txtValue.toUpperCase().indexOf(filter) > -1) {
+-#         li[i].style.display = "";
+-#       } else {
+-#         li[i].style.display = "none";
+-#       }
+-#     }
+-#   }  

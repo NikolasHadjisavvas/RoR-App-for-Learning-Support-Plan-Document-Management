@@ -1,0 +1,2 @@
+module LsPsHelper
+end

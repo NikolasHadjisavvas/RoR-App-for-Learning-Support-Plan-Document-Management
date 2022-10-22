@@ -1,0 +1,56 @@
+@import "bootstrap/functions";
+@import "bootstrap/variables";
+
+$footer-height: 60px;
+$environment-notice-height: 2rem;
+
+$theme-colors: (
+    "dark": #007bff
+);
+
+$theme_blue : #007bff;
+
+
+//Main Page - users table
+//-> table's header and overall structure
+.table{
+    text-align: center;
+    margin-top: 50px;
+    box-sizing: border-box;
+    border-collapse: collapse;
+    background-color: $theme_blue;
+    color: white;
+    box-shadow: 0 5px 9px 0 rgba(0, 0, 0, 0.2), 0 7px 21px 0 rgba(0, 0, 0, 0.19);
+    border-color: lightgray;
+    tr {
+        &:nth-child(even) {
+            background-color: #e6e6e6;
+        }
+    }
+}
+
+//-> users' information
+.users_table{
+    color: black;
+    background-color: white;
+    border-color: lightgray;
+}
+
+// changes the color when hovered on top but not on the table header
+td:hover{
+    background-color: #cecece;
+}
+
+th:hover {
+    background-color: none;
+}
+
+.header{
+    margin-bottom: 40px;
+}
+
+.mark {
+    font-weight: bold;
+    background: #EFEFEF;
+
+  }

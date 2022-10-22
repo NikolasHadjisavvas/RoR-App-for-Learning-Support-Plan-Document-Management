@@ -1,0 +1,15 @@
+- content_for :title, 'Log In'
+
+.row.justify-content-center
+  .col-sm-6.col-lg-4
+    .card.card-light
+      = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+        .card-body{:class => "login_page"}
+          = f.input :username, placeholder: "Enter Username", autofocus: true, required: true
+          = f.input :password, placeholder: "Enter Password", required: true
+        .card-footer
+          = submit_button 'Log in'
+          .mt-3= render "devise/shared/links"
+        
+
+

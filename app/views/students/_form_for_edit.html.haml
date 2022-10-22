@@ -1,0 +1,29 @@
+-# frozen_string_literal: true
+= simple_form_for(@student) do |f|
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+  .form-inputs
+    = f.input :regNo, readonly: true
+    = f.input :firstname
+    = f.input :lastname
+    = f.input :programmeCode
+    - if current_user.dlo?
+      = f.input :deptCode, as: :select, collection: [current_user.ou], selected: current_user.ou, readonly: true
+    - else
+      = f.input :deptCode, input_html: { class: 'select2' }, collection: Department.all, label_value: :deptCode, label_method: :codeAndTitle, label: 'Department', prompt: "Select a department"
+    = f.input :tutor_id, input_html: { class: 'select2' }, collection: User.where(role: "Academic"), label_value: :id, label_method: :fullName, label: 'Tutor', include_blank: false, prompt: "Select a Tutor"
+    = f.input :periodOfStudy
+    = f.label :date, "Completion date"
+    - if !@student.completion_date.nil?
+      = f.date_field :completion_date, min: Date.today, class: "form-control", value: @student.completion_date
+    - else
+      = f.date_field :completion_date, min: Date.today, class: "form-control", value: Date.today
+    - if current_user.dlo?
+      = f.association :uni_modules, input_html: { class: 'select2' }, collection: UniModule.where(deptCode: current_user.ou), label_value: :id ,label_method: :modCode
+    -else
+      = f.association :uni_modules, input_html: { class: 'select2' }, collection: UniModule.all , label_value: :id ,label_method: :modCode
+    = f.input :user_ids, input_html: { class: 'select2' }, collection: User.where(role: "Academic"), label_value: :id ,label_method: :fullName, label: 'Supervisor'
+
+  .form-actions
+    = f.button :submit, class: 'create'

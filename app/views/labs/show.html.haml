@@ -1,0 +1,27 @@
+%p#notice= notice
+
+%p
+  %b Eventid:
+  = @lab.eventId
+
+%p
+  %b Room:
+
+%p
+  %b Room Name:
+  = @lab.roomname
+
+%p
+  %b Date:
+  = @lab.startdate.localtime.strftime('%a, %d %b %Y')
+%p
+  %b Start Time:
+  = @lab.startdate.localtime.strftime('%H:%M')
+%p
+  %b Finish Time:
+  = @lab.finishdate.localtime.strftime('%H:%M')
+
+
+= link_to 'Edit', edit_lab_path(@lab)
+\|
+= link_to 'Back', labs_path, class: 'linkBtn'

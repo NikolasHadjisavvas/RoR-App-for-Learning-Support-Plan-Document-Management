@@ -1,0 +1,28 @@
+-# frozen_string_literal: true
+= simple_form_for(@student) do |f|
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+  .form-inputs.bold.box-sizing.h{:class => "form-inputs"}
+    = f.input :regNo, input_html: { class: 'input-box', placeholder: 'Enter your Registration Number'}
+    = f.input :firstname, input_html: { class: 'input-box', placeholder: 'Enter your First Name'}
+    = f.input :lastname, input_html: { class: 'input-box', placeholder: 'Enter your Last Name'}
+    = f.input :programmeCode, input_html: { class: 'input-box', placeholder: 'Enter your Programme Code'}
+    = f.input :deptCode, as: :select, collection: [current_user.ou], selected: current_user.ou, readonly: true
+    = f.input :tutor_id, input_html: { class: 'select2' }, collection: User.where(role: "Academic"), label_value: :id, label_method: :fullName, label: 'Tutor', include_blank: false, prompt: "Select a Tutor"
+    = f.input :periodOfStudy, input_html: { class: 'input-box', placeholder: 'Enter your Period of Study'}
+    = f.label :date, "Completion date"
+    - if !@student.completion_date.nil?
+      = f.date_field :completion_date, min: Date.today, class: "form-control", value: @student.completion_date
+    - else
+      = f.date_field :completion_date, min: Date.today, class: "form-control", value: Date.today
+    = f.association :uni_modules, input_html: { class: 'select2' }, collection: UniModule.where(deptCode: current_user.ou), label_value: :id ,label_method: :modCode
+    = f.input :user_ids, input_html: { class: 'select2' }, collection: User.where(role: "Academic"), label_value: :id ,label_method: :fullName, label: 'Supervisor', prompt: "Select a Supervisor"
+
+  .form-actions{:class => "submit-button"}
+    = f.button :submit, class: 'create'
+
+    #addStudent.tooltipright
+      %i.fa.fa-question-circle.fa-color{"aria-hidden" => "true"}
+      %span.toolttext Fill in the necessary details and click on 'Create Student' to create a new student
+

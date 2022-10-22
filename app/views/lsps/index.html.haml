@@ -1,0 +1,41 @@
+%h1 Listing lsps
+
+%table
+  %thead
+    %tr
+      %th RegNo
+      %th Disability type
+      %th Disability info
+      %th Access
+      %th Contact
+      %th Teaching
+      %th Exams
+      %th Practicals
+      %th Circumstances
+      %th Recommendations
+      %th
+      %th
+
+  %tbody
+    - @lsps.each do |lsp|
+      %tr
+        %td= lsp.regNo
+        %td= lsp.disabilitytype
+        %td= simple_format(lsp.disabilityInfo)
+        %td= simple_format(lsp.access)
+        %td= simple_format(lsp.contact)
+        %td= simple_format(lsp.teaching)
+        %td= simple_format(lsp.exams)
+        %td= simple_format(lsp.practicals)
+        %td= simple_format(lsp.circumstances)
+        %td= simple_format(lsp.recommendations)
+        %td= lsp.updated_at.localtime.strftime('%a, %d %b %Y %H:%M:%S')
+        %td= link_to 'Show', lsp
+        %td= link_to 'Edit', edit_lsp_path(lsp)
+        %td= link_to 'Destroy', lsp, method: :delete, data: { confirm: 'Are you sure?' }
+
+= raw pagy_bootstrap_nav(@pagy).html_safe
+
+%br
+
+= link_to 'New Lsp', new_lsp_path

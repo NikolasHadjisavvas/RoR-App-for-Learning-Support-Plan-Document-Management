@@ -1,0 +1,109 @@
+- content_for :title, 'Upload'
+
+
+- if current_user.dlo?
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title Upload Students
+    = simple_form_for :upload_students, url: upload_students_uploads_path do |f|
+      .panel-body
+        .bold.fileInputWrapper
+          = f.input :file, as: :file, label: 'Please choose file', class: 'fileUploadBtn', input_html: { id: 'file-upload-students'}
+          %label.fileUploadBtn{:for => 'file-upload-students'} Upload File
+          
+        -# %label{:for => 'file-upload-students', class: 'file-upload-btn'} Upload file 
+        -# %span.file-upload-status No file chosen
+      .panel-footer
+        = submit_button
+        #uploadStudents.tooltipright
+          %i.fa.fa-question-circle.fa-color.fa-1x{"aria-hidden" => "true"}
+          %span.toolttext This will create/update students in the database. Please make sure the modules of the students are in the database before uploading. Headings: Registration_Number, Surname, Forename, Tiitle, E_Mail_Address, Supervisors_Surname, Supervisors_Initials, SupervisorsEmail, Tutor_Surname, Tutor_Initials, TutorEmail, Programme_Code, Programme_Period_Code, Calendar_Occurence_Code, Programme_Period_Code, Expected_Completion_Date, Unit_Code, Calendar_Type_Code, Owned_By_Code
+
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title Upload Modules and Academics
+    = simple_form_for :upload_uni_modules, url: upload_uni_modules_uploads_path do |f|
+      .panel-body
+        .bold.fileInputWrapper
+          = f.input :file, as: :file, label: 'Please choose file', class: 'fileUploadBtn', input_html: { id: 'file-upload-modules'}
+          %label.fileUploadBtn{:for => 'file-upload-modules'} Upload File
+      .panel-footer
+        = submit_button
+        #uploadModules.tooltipright
+          %i.fa.fa-question-circle.fa-color.fa-1x{"aria-hidden" => "true"}
+          %span.toolttext This will create/update the modules and academics in the database. Headings: Module Code,Semester type,Academic 1,Email,Academic 1 Dept,Academic 2,Email,Academic 2 Dept,Academic 3,Email,Academic 3 Dept
+
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title Upload Labs
+    = simple_form_for :upload_labs, url: upload_labs_uploads_path do |f|
+      .panel-body
+        .bold.fileInputWrapper
+          = f.input :file, as: :file, label: 'Please choose file', class: 'fileUploadBtn', input_html: { id: 'file-upload-labs'}
+          %label.fileUploadBtn{:for => 'file-upload-labs'} Upload File
+      .panel-footer
+        = submit_button
+        #uploadLabs.tooltipright
+          %i.fa.fa-question-circle.fa-color.fa-1x{"aria-hidden" => "true"}
+          %span.toolttext This will create/update lab events and lab technicians in the database. Please make sure the modules and students of the lab are in the database before uploading. Headings: EventId, Start, Finish, Status, Day, Room, RoomName, Module Code, DOA, Staffcode, Staffname, Staffemail, StudentRegNo, Dates
+
+- elsif current_user.ddss?
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title Upload LSP
+    = simple_form_for :upload_lsps, url: upload_lsps_uploads_path do |f|
+      .panel-body
+        .bold.fileInputWrapper
+          = f.input :file, as: :file, label: 'Please choose file', class: 'fileUploadBtn', input_html: { id: 'file-upload-lsps'}
+          %label.fileUploadBtn{:for => 'file-upload-lsps'} Upload File
+      .panel-footer
+        = submit_button
+        #uploadLsps.tooltipright
+          %i.fa.fa-question-circle.fa-color.fa-1x{"aria-hidden" => "true"}
+          %span.toolttext This will add the LSP information onto the student in the database.
+
+%br
+
+-# .uploadBox 
+-# %input#file-upload{:type => "file"}
+  -# %br
+  -# -# %i.fa.fa-file{"aria-hidden" => "true"}
+  -# %br
+  -# %br
+  -# %br
+  -# %br
+  -# %br
+  -# %br
+  -# %br
+  -# %br
+-# %label.custom-file-upload{:for => "file-upload"}
+-#   Upload
+
+
+-# %input.upload{:type => "file"}/
+
+-# .uploadLsp
+-#   %b Upload an LSP document
+
+-# %br
+-# /*%span*/
+-# .lspText Click to upload an LSP document
+-# /*%span.highlight*/
+-# %br
+-# %br
+-# %br
+-# %br
+-# %br
+-# %br
+-# %br
+-# %br
+-# %br
+-# %br
+-# %br
+-# %br
+-# %br
+-# %br
+-# %br
+-# .uploadBtn
+-#   %button#file-upload{:type => "submit"}
+-#     %i.fa.fa-plus-circle.fa-color.fa-4x{"aria-hidden" => "true"}

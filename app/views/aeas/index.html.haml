@@ -1,0 +1,35 @@
+%h1 Listing aeas
+
+%table
+  %thead
+    %tr
+      %th Regno
+      %th Requirements
+      %th Other
+      %th Information
+      %th Illness
+      %th Consent
+      %th Duration
+      %th Additional
+      %th
+      %th
+      %th
+
+  %tbody
+    - @aeas.each do |aea|
+      %tr
+        %td= aea.regNo
+        %td= aea.requirements
+        %td= aea.other
+        %td= aea.information
+        %td= aea.illness
+        %td= aea.consent
+        %td= aea.duration
+        %td= aea.additional
+        %td= link_to 'Show', aea
+        %td= link_to 'Edit', edit_aea_path(aea)
+        %td= link_to 'Destroy', aea, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Aea', new_aea_path

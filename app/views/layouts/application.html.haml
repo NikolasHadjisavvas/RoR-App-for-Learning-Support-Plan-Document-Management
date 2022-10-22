@@ -1,0 +1,153 @@
+!!!
+%html
+  %head
+    %title Project - #{content_for(:title)}
+    %meta{ name: "viewport", content: "width=device-width, initial-scale=1.0" }
+    %meta{ :'http-equiv' => 'X-UA-Compatible', content: 'IE=edge' }
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "content-type"}
+    = stylesheet_link_tag    "application", media: :all
+    = javascript_include_tag "application"
+    = favicon_link_tag '/favicon.ico'
+    = csrf_meta_tags
+
+  %body{ class: environment_notice_body_class }
+    .flash-messages
+      - flash.each do |name, msg|
+        - next unless name == 'alert' || name == 'notice'
+        .alert.fade.in
+          .container
+            - if name == 'notice'
+              = icon('fas', 'check', class: 'flash-success')
+            - else
+              = icon('fas', 'exclamation-triangle', class: 'flash-error')
+            = msg
+            %a{ href: '#', title: 'Hide this message', data: { dismiss: :alert } } Dismiss
+
+    #wrap
+      %header
+        %nav#main-nav.navbar.navbar-dark.bg-dark.navbar-expand-lg.fixed-top
+          .container
+            .navbar-header
+              = link_to :root, class: 'navbar-brand hidden-sm' do
+                Project03
+            %button.navbar-toggler{ aria: { controls: "navbar-content", expanded: false, label: "Toggle navigation" }, data: { target: "#navbar-content", toggle: "collapse" }, type: "button" }
+              %span.navbar-toggler-icon
+
+            .collapse.navbar-collapse#navbar-content
+              %ul.nav.navbar-nav
+                = navbar_link_to :root, title: "Go to the home page", identifier: :home do
+                  = icon 'fas', 'home'
+                  Home
+                
+                - if user_signed_in?
+                  - if current_user.academic?
+                    = navbar_link_to uni_modules_path, title: "Go to the My Modules page", identifier: :uni_modules do
+                      = icon 'fas', 'book'
+                      My Modules
+                    = navbar_link_to my_tutees_path, title: "Go to the My Tutees page", identifier: :students do
+                      = icon 'fas', 'chalkboard-teacher'
+                      My Tutees
+                    = navbar_link_to my_supervisees_path, title: "Go to the My Supervisees page", identifier: :students do
+                      = icon 'fas', 'users'
+                      My Supervisees
+                  - if current_user.ddss?
+                    = navbar_link_to new_upload_path, title: "Uploads page", identifier: :uploads do
+                      = icon 'fas', 'upload'
+                      File Uploads
+                    = navbar_link_to new_user_path, title: "Go to Add DDSS user page", identifier: :users do
+                      = icon 'fas', 'plus'  
+                      Add DDSS user
+                    = navbar_link_to users_dlo_users_path, title: "Go to the DLOs", identifier: :users do
+                      = icon 'fas', 'list'
+                      DLOs
+                    = navbar_link_to students_path, title: "Go to the students page", identifier: :students do
+                      = icon 'fas', 'user-graduate'
+                      Students
+                    = navbar_link_to :new_reminder, title: "Go to the DLO reminders page", identifier: :users do
+                      = icon 'fas', 'paper-plane'
+                      DLO Reminders
+                  -if current_user.lab_technician?
+                    = navbar_link_to labs_path, title: "Go to the My Labs page", identifier: :labs do
+                      = icon 'fas', 'calendar-check'
+                      My Labs
+                  -if current_user.dlo?
+                    %ul.nav.navbar-nav.ml-auto
+                      %li.nav-item.dropdown
+                        = link_to '#', aria: { haspopup: true, expanded: false }, data: { toggle: :dropdown }, id: 'navbar-user-link', class: 'nav-link dropdown-toggle', role: 'button' do
+                          = icon 'fas', 'user-graduate', 'Students'
+                          %b.caret
+                        .dropdown-menu{ aria: { labelledby: '#navbar-user-link' } }
+                          = link_to my_students_path, class: 'dropdown-item', identifier: :students, title: "Go to My Students page" do
+                            = icon 'fas', '', 'My Students'
+                          = link_to other_students_path, class: 'dropdown-item', identifier: :students, title: "Go to Other Students page" do
+                            = icon 'fas', '', 'Other Students'
+                            
+                      %li.nav-item.dropdown
+                        = link_to '#', aria: { haspopup: true, expanded: false }, data: { toggle: :dropdown }, id: 'navbar-user-link', class: 'nav-link dropdown-toggle', role: 'button' do
+                          = icon 'fas', 'plus', 'Add User'
+                          %b.caret
+                        .dropdown-menu{ aria: { labelledby: '#navbar-user-link' } }
+                          = link_to :new_student, class: 'dropdown-item', identifier: :students, title: "Go to the Add Student page" do
+                            = icon 'fas', '', 'Add Student'
+                          = link_to :new_user, class: 'dropdown-item', identifier: :users, title: "Go to the Add DLO page" do
+                            = icon 'fas', '', 'Add DLO'
+
+                      %li.nav-item.dropdown
+                        = link_to '#', aria: { haspopup: true, expanded: false }, data: { toggle: :dropdown }, id: 'navbar-user-link', class: 'nav-link dropdown-toggle', role: 'button' do
+                          = icon 'fas', 'paper-plane', 'Send Reminders'
+                          %b.caret
+                        .dropdown-menu{ aria: { labelledby: '#navbar-user-link' } }
+                          = link_to student_reminders_path, class: 'dropdown-item', identifier: :students, title: "Go to Student Reminders page" do
+                            = icon 'fas', '', 'Student Reminders'
+                          = link_to :new_reminder, class: 'dropdown-item', identifier: :students, title: "Go to Academic Reminders page" do
+                            = icon 'fas', '', 'Academic Reminders'
+                      = navbar_link_to new_upload_path, title: "Uploads page", identifier: :uploads do
+                        = icon 'fas', 'upload'
+                        File Uploads
+                  -if current_user.superuser?
+                    %li.nav-item.dropdown
+                      = link_to '#', aria: { haspopup: true, expanded: false }, data: { toggle: :dropdown }, id: 'navbar-user-link', class: 'nav-link dropdown-toggle', role: 'button' do
+                        = icon 'fas', 'users', 'All Users'
+                        %b.caret
+                      .dropdown-menu{ aria: { labelledby: '#navbar-user-link' } }
+                        = link_to students_path, class: 'dropdown-item', identifier: :students, title: "Go to Students page" do
+                          = icon 'fas', '', 'Students'
+                        = link_to users_academic_users_path, class: 'dropdown-item', method: :get, title: "Go to Academics page" do
+                          = icon 'fas', '', 'Academics'
+                        = link_to users_lab_technician_users_path, class: 'dropdown-item', method: :get, title: "Go to Lab Technicians page" do
+                          = icon 'fas', '', 'Lab Technicians'
+                        = link_to users_dlo_users_path, class: 'dropdown-item', method: :get, title: "Go to the DLOs page" do
+                          = icon 'fas', '', 'DLOs'
+                    = navbar_link_to labs_path, title: "Go to the All Labs page", identifier: :students do
+                      = icon 'fas', 'calendar'
+                      All Labs
+                    = navbar_link_to uni_modules_path, title: "Go to the All Modules page", identifier: :uni_modules do
+                      = icon 'fas', 'book'
+                      All Modules
+                    = navbar_link_to :new_reminder, title: "Go to the Send Reminders page", identifier: :students do
+                      = icon 'fas', 'paper-plane'
+                      Send Reminders
+
+
+
+                - if user_signed_in?
+                  %ul.nav.navbar-nav.ml-auto
+                    %li.nav-item.dropdown
+                      = link_to '#', aria: { haspopup: true, expanded: false }, data: { toggle: :dropdown }, id: 'navbar-user-link', class: 'nav-link dropdown-toggle', role: 'button' do
+                        = icon 'fas', 'user',  current_user.givenname + " " + current_user.sn
+                        %b.caret
+                      .dropdown-menu{ aria: { labelledby: '#navbar-user-link' } }
+                        = link_to settings_path, class: 'dropdown-item', method: :settings, title: "Go to User Settings page" do
+                          = icon 'fas', 'user-cog', 'My Account'
+                        = link_to destroy_user_session_path, class: 'dropdown-item', method: :delete, title: "Log out of the system" do
+                          = icon 'fas', 'sign-out-alt', 'Log out'
+
+      %main
+        #main-container.container
+          = yield
+
+    %footer#footer
+      .container
+        %p
+          &copy; #{Date.today.year}
+          Project03

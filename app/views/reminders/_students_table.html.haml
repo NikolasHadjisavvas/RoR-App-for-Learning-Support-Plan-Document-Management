@@ -1,0 +1,17 @@
+= javascript_tag 'select_all.js'
+
+- @students.each do |student|
+  %tr{:class => "reminders_table"}
+    %td= check_box_tag('user_ids[]', student.lastname, false, class: 'checkBox')
+    %td= link_to student.regNo, student
+    %td= student.firstname
+    %td= student.lastname
+    %td= student.programmeCode
+    %td= student.deptCode
+    %td= getTutorName(student)
+    %td= student.periodOfStudy
+
+#studentReminders.tooltipright
+  %i.fa.fa-question-circle.fa-color{"aria-hidden" => "true"}
+  %span.toolttext For choosing the recipients of the email, either check the checkbox in the blue header of the table(if you want to send the reminder to all possible recipients), or check the individual box of the people you want to send an email, if you want to send the email to specific recipients
+  

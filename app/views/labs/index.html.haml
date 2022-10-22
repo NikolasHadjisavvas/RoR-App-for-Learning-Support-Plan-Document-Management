@@ -1,0 +1,41 @@
+%h1 Listing labs
+
+%table{:class => "generic_table", :border => "0", :style => "width: 100%;"}
+  %thead
+    %tr
+      %th Event ID
+      %th Day
+      %th Room
+      %th Room Name
+      %th Date
+      %th Start Time
+      %th Finish Time
+      %th Lab Technician
+      - if !current_user.lab_technician?
+        %th
+        %th
+
+  %tbody{:class => "student_table_content"}
+    - @labs.each do |lab|
+      %tr
+        %td= link_to lab.eventId, lab
+        %td= lab.day
+        %td= lab.room
+        %td= lab.roomname
+        %td= lab.startdate.strftime('%a, %d %b %Y')
+        %td= lab.startdate.strftime('%H:%M')
+        %td= lab.finishdate.strftime('%H:%M')
+        %td= User.find(lab.user_id).fullName
+        - if !current_user.lab_technician?
+          %td= link_to 'Edit', edit_lab_path(lab)
+          %td= link_to 'Destroy', lab, method: :delete, data: { confirm: 'Are you sure?' }
+
+= raw pagy_bootstrap_nav(@pagy).html_safe
+
+%br
+
+- if !current_user.lab_technician?
+  = link_to 'New Lab', new_lab_path, class: 'linkBtn'
+  #lab.tooltipright
+    %i.fa.fa-question-circle.fa-color{"aria-hidden" => "true"}
+    %span.toolttext Click on 'New Lab' to add a new lab

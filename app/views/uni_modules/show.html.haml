@@ -1,0 +1,6 @@
+%p#notice= notice
+
+- if !current_user.academic?
+  = link_to 'Edit', edit_uni_module_path(@uni_module), class: 'linkBtn'
+  -# \|
+= link_to 'Back', uni_modules_path, class: 'linkBtn'

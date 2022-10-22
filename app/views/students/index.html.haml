@@ -1,0 +1,90 @@
+- if session[:return_to] == "/students"
+  %h1 Listing Students
+- elsif session[:return_to] == "/students/other_students"
+  %h1 Other Students
+- elsif session[:return_to] == "/students/my_students"
+  %h1 My Students
+- elsif session[:return_to] == "/students/my_supervisees"
+  %h1 My Supervisees
+- elsif session[:return_to] == "/students/my_tutees"
+  %h1 My Tutees
+- elsif session[:return_to] == "/labs/#{session[:return_id]}"
+  %h1.bold.banner.header2 #{session[:return_id_title]}
+  -# %h3.divisor ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  %h3.padding #{session[:return_id_subtitle1]}
+  %h3.padding #{session[:return_id_subtitle2]}
+- else
+  %h1 #{session[:return_id_title]}
+
+%br
+
+= simple_form_for :search, url: search_students_path, method: :post do |f|
+  = f.input :search_for_students
+  - if current_user.superuser?
+    = f.input :deptCode, input_html: { class: 'select2' }, collection: Department.all, label_value: :deptCode, label_method: :codeAndTitle, label: 'Department', prompt: "Select a department"
+  = f.submit 'Search'
+  = link_to 'Reset', backLocation, class: 'linkBtn'
+  #users.tooltipright
+    %i.fa.fa-question-circle.fa-color{"aria-hidden" => "true"}
+    %span.toolttext Fill in the categories to search by and click on the 'Search' button after to search. Click on the 'Reset' button to clear all fields for a new search.
+%br
+
+%div{:style => "overflow-x:auto;"}
+  %table{:class => "students_table", :border => "0"}
+    %thead
+      %tr
+        %th Registration Number
+        %th Forename
+        %th Surname
+        %th Programme Code
+        %th Deptcode
+        %th Personaltutor
+        %th Periodofstudy
+        %th Disability Type
+        %th Disability Info
+        %th Access
+        %th Contact
+        %th Teaching
+        %th Exams
+        %th Practicals
+        %th Circumstances
+        %th Recommendations
+        %th Last updated at
+
+    %tbody{:class => "student_table_content"}
+      - @students_with_lsps.each do |student, lsp, last_update|
+        %tr
+          %td= link_to student.regNo, student
+          %td= student.firstname
+          %td= student.lastname
+          %td= student.programmeCode
+          %td= student.deptCode
+          %td= getTutorName(student)
+          %td= student.periodOfStudy
+          %td= simple_format(lsp.disabilitytype)
+          %td= simple_format(lsp.disabilityInfo)
+          %td= simple_format(lsp.access)
+          %td= simple_format(lsp.contact)
+          %td= simple_format(lsp.teaching)
+          %td= simple_format(lsp.exams)
+          %td= simple_format(lsp.practicals)
+          %td= simple_format(lsp.circumstances)
+          %td= simple_format(lsp.recommendations)
+          %td= last_update.localtime.strftime('%a, %d %b %Y %H:%M:%S')
+
+  = raw pagy_bootstrap_nav(@pagy).html_safe
+
+%br
+
+- if session[:return_to] != "/uni_modules/#{session[:return_id]}" && session[:return_to] != "/labs/#{session[:return_id]}" && (!current_user.academic? && !current_user.lab_technician?) && session[:return_to] != "/students/other_students"
+  = link_to 'New Student', new_student_path, class: 'linkBtn'
+  #newStudent.tooltipright
+    %i.fa.fa-question-circle.fa-color{"aria-hidden" => "true"}
+    %span.toolttext Click on 'New Student' to add a new student
+- if session[:return_to] == "/uni_modules/#{session[:return_id]}"
+  = link_to 'Back', uni_modules_path, class: 'linkBtn'
+- elsif session[:return_to] == "/labs/#{session[:return_id]}"
+  = link_to 'Back', labs_path, class: 'linkBtn'
+
+%br
+%br

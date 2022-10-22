@@ -1,0 +1,22 @@
+-# frozen_string_literal: true
+= simple_form_for(@student) do |f|
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+
+  .form-inputs.bold.box-sizing.h
+    = f.input :regNo
+    = f.input :firstname
+    = f.input :lastname
+    = f.input :programmeCode
+    = f.input :deptCode, input_html: { class: 'select2' }, collection: Department.all, label_value: :deptCode, label_method: :codeAndTitle, label: 'Department', prompt: "Select a department"
+    = f.input :tutor_id, input_html: { class: 'select2' }, collection: User.where(role: "Academic"), label_value: :id, label_method: :fullName, label: 'Tutor', include_blank: false, prompt: "Select a Tutor"
+    = f.input :periodOfStudy
+    = f.label :date, "Completion date"
+    = f.date_field :completion_date, min: Date.today, class: "form-control", value: Date.today
+    %br
+    %br
+    = f.association :uni_modules, input_html: { class: 'select2' }, collection: UniModule.all , label_value: :id ,label_method: :modCode, label: 'Modules'
+    = f.input :user_ids, input_html: { class: 'select2' }, collection: User.where(role: "Academic"), label_value: :id ,label_method: :fullName, label: 'Supervisor', prompt: "Select a supervisor"
+
+  .form-actions
+    = f.button :submit, class: 'create'

@@ -1,0 +1,60 @@
+- if current_user.ddss? && session[:return_to] == ("/users/dlo_users")
+  %h1{:class => "header"} Listing DLOs
+- elsif session[:return_to] == ("/users/academic_users")
+  %h1{:class => "header"} Listing Academics
+- elsif session[:return_to] == ("/users/lab_technician_users")
+  %h1{:class => "header"} Listing Lab Technicians
+- elsif session[:return_to] == ("/users/dlo_users")
+  %h1{:class => "header"} Listing DLOs
+- else
+  %h1{:class => "header"} Listing Users
+
+= simple_form_for :search, url: search_users_path, method: :post do |f|
+  = f.input :search_for_users
+  - if session[:return_to] == ("/users/academic_users")
+    = f.input :role, as: :select, collection: ["Academic"], include_blank: false, readonly: true
+  - elsif session[:return_to] == ("/users/lab_technician_users")
+    = f.input :role, as: :select, collection: ["Lab Technician"], include_blank: false, readonly: true
+  - elsif session[:return_to] == ("/users/dlo_users")
+    = f.input :role, as: :select, collection: ["DLO"], include_blank: false, readonly: true
+  - else
+    = f.input :role, as: :select, collection: ["DLO", "Academic", "DDSS", "Lab Technician", "Superuser"]
+
+  = f.input :deptCode, input_html: { class: 'select2' }, collection: Department.all, label_value: :deptCode, label_method: :codeAndTitle, label: 'Department', prompt: "Select a department"
+  = f.submit 'Search'
+
+  = link_to 'Reset', backLocation, class: 'linkBtn'
+
+  #users.tooltipright
+    %i.fa.fa-question-circle.fa-color{"aria-hidden" => "true"}
+    %span.toolttext Fill in the categories to search by and click on the 'Search' button after to search. Click on the 'Reset' button to clear all fields for a new search.
+
+
+%table{:class => "table", :width=>"100%"}
+  %tr
+    %th Username
+    %th First name
+    %th Last name
+    %th Email
+    %th Role
+    %th Department Code
+ 
+
+  %tbody#users-table
+    = render 'users_table'
+
+= raw pagy_bootstrap_nav(@pagy).html_safe
+
+%br
+
+- if !current_user.ddss?
+  = link_to 'New User', new_user_path, class: 'linkBtn'
+
+  #newUser.tooltipright
+    %i.fa.fa-question-circle.fa-color{"aria-hidden" => "true"}
+    %span.toolttext Click on 'New User' to add a new user
+
+%br
+%br
+
+
